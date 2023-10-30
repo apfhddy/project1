@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="map">
+	<select id="motelMap" parameterType="String" resultType="vo.Motel">
+		select * from motel where short_address = #{short_address}
+	</select>
+	
+	<select id="hotelMap" parameterType="String" resultType="vo.Hotel">
+		select * from hotel where short_address = #{short_address}
+	</select>
+</mapper>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="motel">
+	<!-- 모텔 리스트 -->
+	<select id="motelList" resultType="vo.Motel" parameterType="int">
+		select * from motel where m_region1_idx = #{m_region1_idx} and 
+								m_region2_idx = #{m_region2_idx} 
+								order by motel_idx asc
+	</select>
+	
+	<!-- 모텔 객실 리스트 -->
+	<select id="mRoomList" resultType="vo.M_Room" parameterType="int"> 
+		select * from m_room where m_region1_idx = #{m_region1_idx}
+								 	and m_region2_idx = #{m_region2_idx}
+		 							and motel_idx = #{motel_idx}
+		 							order by m_room_idx asc
+	</select>
+	
+	<select id="mRoomRes" resultType="vo.M_Room" parameterType="int"> 
+		select * from m_room where m_region1_idx = #{m_region1_idx}
+								 	and m_region2_idx = #{m_region2_idx}
+		 							and motel_idx = #{motel_idx}
+		 							and m_room_idx = #{m_room_idx}
+	</select>
+	
+	<!-- 체크인날짜 -->
+	<select id="checkin" parameterType="int" resultType="String">
+		select checkin from m_res where m_region1_idx = #{m_region1_idx} 
+			and m_region2_idx = #{m_region2_idx}
+			and motel_idx = #{motel_idx}
+			and m_room_idx = #{m_room_idx}
+			order by m_res_idx asc
+	</select>
+	
+	<!-- 체크아웃 날짜 -->
+	<select id="checkout" parameterType="int" resultType="String">
+		select checkout from m_res where m_region1_idx = #{m_region1_idx} 
+			and m_region2_idx = #{m_region2_idx}
+			and motel_idx = #{motel_idx}
+			and m_room_idx = #{m_room_idx}
+			order by m_res_idx asc
+	</select>
+	
+	<!-- 전화번호, 예약번호로 예약정보찾기 -->
+	<select id="motelResPhone" resultType="vo.M_Res" parameterType="String">
+		select * from m_res where res_phone = #{res_phone} and res_number = #{res_number} order by m_res_idx asc
+	</select>
+	
+	
+	<!-- 모텔에서 제공하는 쿠폰 -->
+	<select id="motelCoupon" resultType="vo.M_Coupon">
+		select * from m_coupon
+	</select>
+	
+	<select id="motelCouponIdx" resultType="vo.M_Coupon" parameterType="int">
+		select * from m_coupon where m_coupon_idx = #{m_coupon_idx}
+	</select>
+	
+	
+	<!-- 모텔의 이름 -->
+	<select id="motelName" parameterType="int" resultType="String">
+		select name from motel where m_region1_idx = #{m_region1_idx} 
+									and m_region2_idx = #{m_region2_idx} and motel_idx = #{motel_idx}
+	</select>
+	
+	<!-- 예약확인시에 객실정보 보기 -->
+	<select id="motelRoomInfo" resultType="vo.M_Room" parameterType="int">
+		select * from m_room where m_region1_idx = #{m_region1_idx} and m_region2_idx = #{m_region2_idx} 
+								and motel_idx = #{motel_idx} and m_room_idx = #{m_room_idx}
+	</select>
+	
+	<!-- 모텔 예약하기 -->
+	<insert id="insertMotelRes" parameterType="vo.M_Res">
+		insert into m_res values(m_res_seq.nextval, #{m_region1_idx}, #{m_region2_idx}, #{motel_idx}, #{m_room_idx}
+		, #{checkin}, #{checkout}, #{vehicle}, #{res_name}, #{res_phone}, #{use_name}, #{use_phone}, #{person_size}
+		, #{total_price}, #{credit}, sysdate, #{m_coupon_idx}, #{res_number})
+	</insert>
+	
+	<!-- 쿠폰적용없이 모텔 예약하기 -->
+	<insert id="insertMotelNoCoupon" parameterType="vo.M_Res">
+		insert into m_res(m_res_idx, m_region1_idx, m_region2_idx, motel_idx, m_room_idx, checkin, checkout,
+		vehicle, res_name, res_phone, use_name, use_phone, person_size, total_price, credit, regdate, res_number) 
+		values(m_res_seq.nextval, #{m_region1_idx}, #{m_region2_idx}, #{motel_idx}, #{m_room_idx}
+		, #{checkin}, #{checkout}, #{vehicle}, #{res_name}, #{res_phone}, #{use_name}, #{use_phone}, #{person_size}
+		, #{total_price}, #{credit}, sysdate, #{res_number})
+	</insert>
+	
+	
+	<!-- 남은 객실 수 초기화하기 (날짜 선택시에 변화된 남은 객실수를 초기화 해주기 위해서 ) -->
+	<update id="updateRoomNumber" parameterType="int">
+		update m_room set room_number = #{room_number} where m_region1_idx = #{m_region1_idx} 
+			and m_region2_idx = #{m_region2_idx} 
+			and motel_idx = #{motel_idx} 
+			and m_room_idx = #{m_room_idx}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

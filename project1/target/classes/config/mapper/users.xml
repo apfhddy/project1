@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="users">
+	<!-- SQL문들을 작성하는 파일 -->
+	<select id="checkEmail" parameterType="String" resultType="map">
+		select users_idx,status from users where email = #{email} 
+	</select>
+	
+	<select id="checkPhone" parameterType="String" resultType="String">
+		select phone from users where phone = #{phone} 
+	</select>
+	
+ 	<insert id="insertUsers" parameterType="vo.UsersVO">
+		insert into users values(users_seq.nextval,#{email},#{pw},#{phone},'test','https://mblogthumb-phinf.pstatic.net/MjAyMDA2MTBfMTY1/MDAxNTkxNzQ2ODcyOTI2.Yw5WjjU3IuItPtqbegrIBJr3TSDMd_OPhQ2Nw-0-0ksg.8WgVjtB0fy0RCv0XhhUOOWt90Kz_394Zzb6xPjG6I8gg.PNG.lamute/user.png?type=w800','0,0',0,0)
+	</insert>
+	 
+	<select id="checkLogin" parameterType="map" resultType="map">
+		select users_idx,status from users where email = #{email} and pw = #{pw}
+	</select>
+	
+	<select id="selectUser" parameterType="int" resultType="vo.UsersVO">
+		select * from users where users_idx = #{idx}
+	</select>
+	
+	<update id="updateAgreetype" parameterType="map">
+		update users set agree_type_idx = #{agree} where users_idx = #{idx}
+	</update>
+	
+	<update id="updateStatus" parameterType="int">
+		update users set status = 1 where users_idx = #{idx}
+	</update>
+	
+	<update id="updatePw" parameterType="vo.UsersVO">
+		update users set pw = #{pw} where users_idx = #{users_idx}
+	</update>
+	
+	<update id="updatePhone" parameterType="vo.UsersVO">
+		update users set phone = #{phone} where users_idx = #{users_idx}
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
