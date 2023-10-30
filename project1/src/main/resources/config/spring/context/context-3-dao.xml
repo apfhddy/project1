@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!--  
+	<bean id="yanoljaDao" class="dao.YanoljaDAO">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
+	-->
+	
+	<bean id="homeDAO" class="dao.HomeDAO">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+		
+	<bean id="usersDAO" class="dao.UsersDAO">
+		<constructor-arg name="usersSqlSession" ref="sqlSession"/> 
+	</bean>	
+	
+	<bean id="regionDao" class="dao.RegionDao">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="motelDao" class="dao.MotelDao">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="hotelDao" class="dao.HotelDao">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="mapDao" class="dao.MapDao">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+	
+	<bean id="adminDao" class="dao.AdminDao">
+		<constructor-arg ref="sqlSession"/>
+	</bean>
+		
+		
+</beans>

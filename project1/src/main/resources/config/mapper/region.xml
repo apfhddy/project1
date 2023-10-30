@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="region">
+		<select id="motelRegion1" resultType="vo.M_Region1">
+			select * from m_region1
+		</select>
+		
+		<select id="hotelRegion1" resultType="vo.H_Region1">
+			select * from h_region1
+		</select>
+		
+		<select id="motelRegion2" resultType="vo.M_Region2" parameterType="int">
+			select * from m_region2 where m_region1_idx = #{m_region1_idx}
+		</select>
+		
+		<select id="hotelRegion2" resultType="vo.H_Region2" parameterType="int">
+			select * from h_region2 where h_region1_idx = #{h_region1_idx}
+		</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

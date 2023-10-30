@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "HTTP://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+	</settings>
+	
+	
+	<mappers>
+		<mapper resource="config/mapper/pro.xml"/>
+		<mapper resource="config/mapper/users.xml"/>
+		<mapper resource="config/mapper/region.xml"/>
+		<mapper resource="config/mapper/motel.xml"/>
+		<mapper resource="config/mapper/hotel.xml"/>
+		<mapper resource="config/mapper/map.xml"/>
+		<mapper resource="config/mapper/admin.xml"/>
+		<!-- <mapper resource="config/mybatis/mapper/board_select.xml" />
+		<mapper resource="config/mybatis/mapper/board_insert.xml" />
+		<mapper resource="config/mybatis/mapper/board_update.xml" />
+		<mapper resource="config/mybatis/mapper/board_delete.xml" /> -->
+	</mappers>
+</configuration>

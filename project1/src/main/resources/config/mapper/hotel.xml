@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hotel">
+	<select id="hotelList" resultType="vo.Hotel" parameterType="int">
+		select * from hotel where h_region1_idx = #{h_region1_idx} and 
+								h_region2_idx = #{h_region2_idx} 
+								order by hotel_idx asc
+	</select>
+	
+	<select id="hRoomList" resultType="vo.H_Room" parameterType="int"> 
+		select * from h_room where h_region1_idx = #{h_region1_idx}
+								 	and h_region2_idx = #{h_region2_idx}
+		 							and hotel_idx = #{hotel_idx}
+		 							order by h_room_idx asc
+	</select>
+	
+	<select id="hRoomRes" resultType="vo.H_Room" parameterType="int"> 
+		select * from h_room where h_region1_idx = #{h_region1_idx}
+								 	and h_region2_idx = #{h_region2_idx}
+		 							and hotel_idx = #{hotel_idx}
+		 							and h_room_idx = #{h_room_idx}
+	</select>
+	
+	<select id="checkin" parameterType="int" resultType="String">
+		select checkin from h_res where h_region1_idx = #{h_region1_idx} 
+			and h_region2_idx = #{h_region2_idx}
+			and hotel_idx = #{hotel_idx}
+			and h_room_idx = #{h_room_idx}
+			order by h_res_idx asc
+	</select>
+	
+	<select id="checkout" parameterType="int" resultType="String">
+		select checkout from h_res where h_region1_idx = #{h_region1_idx} 
+			and h_region2_idx = #{h_region2_idx}
+			and hotel_idx = #{hotel_idx}
+			and h_room_idx = #{h_room_idx}
+			order by h_res_idx asc
+	</select>
+	
+	<select id="hotelResPhone" resultType="vo.H_Res" parameterType="String">
+		select * from h_res where res_phone = #{res_phone} and res_number = #{res_number} order by h_res_idx asc
+	</select>
+	
+	<select id="hotelCoupon" resultType="vo.H_Coupon">
+		select * from h_coupon
+	</select>
+	
+	<select id="hotelCouponIdx" resultType="vo.H_Coupon" parameterType="int">
+		select * from h_coupon where h_coupon_idx = #{h_coupon_idx}
+	</select>
+	
+	
+	<select id="hotelName" parameterType="int" resultType="String">
+		select name from hotel where h_region1_idx = #{h_region1_idx} 
+									and h_region2_idx = #{h_region2_idx} and hotel_idx = #{hotel_idx}
+	</select>
+	
+	<select id="hotelRoomInfo" resultType="vo.H_Room" parameterType="int">
+		select * from h_room where h_region1_idx = #{h_region1_idx} and h_region2_idx = #{h_region2_idx} 
+								and hotel_idx = #{hotel_idx} and h_room_idx = #{h_room_idx}
+	</select>
+	
+	<insert id="insertHotelRes" parameterType="vo.H_Res">
+		insert into h_res values(h_res_seq.nextval, #{h_region1_idx}, #{h_region2_idx}, #{hotel_idx}, #{h_room_idx}
+		, #{checkin}, #{checkout}, #{vehicle}, #{res_name}, #{res_phone}, #{use_name}, #{use_phone}, #{person_size}
+		, #{total_price}, #{credit}, sysdate, #{h_coupon_idx}, #{res_number})
+	</insert>
+	
+	<insert id="insertHotelNoCoupon" parameterType="vo.H_Res">
+		insert into h_res(h_res_idx, h_region1_idx, h_region2_idx, hotel_idx, h_room_idx, checkin, checkout,
+		vehicle, res_name, res_phone, use_name, use_phone, person_size, total_price, credit, regdate, res_number) 
+		values(h_res_seq.nextval, #{h_region1_idx}, #{h_region2_idx}, #{hotel_idx}, #{h_room_idx}
+		, #{checkin}, #{checkout}, #{vehicle}, #{res_name}, #{res_phone}, #{use_name}, #{use_phone}, #{person_size}
+		, #{total_price}, #{credit}, sysdate, #{res_number})
+	</insert>
+	
+	<update id="updateRoomNumber" parameterType="int">
+		update h_room set room_number = #{room_number} where h_region1_idx = #{h_region1_idx} 
+			and h_region2_idx = #{h_region2_idx} 
+			and hotel_idx = #{hotel_idx} 
+			and h_room_idx = #{h_room_idx}
+	</update>
+</mapper>
